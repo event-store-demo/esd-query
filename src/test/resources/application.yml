@@ -1,0 +1,17 @@
+---
+spring:
+  profiles: event-store
+
+  cloud:
+    stream:
+      default-binder: rabbit
+
+
+---
+spring:
+  profiles: kafka
+
+kafka:
+  bootstrap-servers: ${spring.embedded.kafka.brokers}
+  topic:
+    receiver: board-events
