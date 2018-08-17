@@ -1,0 +1,8 @@
+esd_project: esd-query
+
+esd_nexus.username:
+esd_nexus.password:
+
+esd_github.private_key:
+
+concourse_pipeline_name: esd-query
