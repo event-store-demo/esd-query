@@ -5,13 +5,14 @@ import io.pivotal.dmfrey.eventStoreDemo.Application;
 import io.pivotal.dmfrey.eventStoreDemo.domain.client.BoardClient;
 import io.pivotal.dmfrey.eventStoreDemo.domain.events.BoardInitialized;
 import io.pivotal.dmfrey.eventStoreDemo.domain.model.Board;
-import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.clients.consumer.Consumer;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.ClassRule;
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.WebApplicationType;
 import org.springframework.context.ConfigurableApplicationContext;
@@ -29,8 +30,9 @@ import static io.pivotal.dmfrey.eventStoreDemo.domain.client.kafka.config.KafkaC
 import static org.hamcrest.Matchers.*;
 import static org.junit.Assert.assertThat;
 
-@Slf4j
 public class KafkaBoardClientEmbeddedKafkaTests {
+
+    private static final Logger log = LoggerFactory.getLogger( KafkaBoardClientEmbeddedKafkaTests.class );
 
     private static String RECEIVER_TOPIC = "board-events";
 

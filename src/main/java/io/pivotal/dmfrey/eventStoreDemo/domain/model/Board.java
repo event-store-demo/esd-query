@@ -1,15 +1,12 @@
 package io.pivotal.dmfrey.eventStoreDemo.domain.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.google.common.collect.ImmutableList;
 import io.pivotal.dmfrey.eventStoreDemo.domain.events.*;
 import io.vavr.API;
 import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.time.Instant;
 import java.util.*;
@@ -18,16 +15,18 @@ import static io.vavr.API.$;
 import static io.vavr.API.Case;
 import static io.vavr.Predicates.instanceOf;
 import static io.vavr.collection.Stream.ofAll;
-import static lombok.AccessLevel.NONE;
 
 @Data
-@Slf4j
 @JsonIgnoreProperties( ignoreUnknown = true )
 public class Board {
+
+    private static final Logger log = LoggerFactory.getLogger( Board.class );
 
     private UUID boardUuid;
     private String name = "New Board";
     private Map<UUID, Story> stories = new HashMap<>();
+
+    private List<DomainEvent> changes = new ArrayList<>();
 
     public Board() { }
 
@@ -41,6 +40,7 @@ public class Board {
         log.debug( "boardInitialized : event=" + event );
 
         this.boardUuid = event.getBoardUuid();
+        this.changes.add( event );
 
         return this;
     }
@@ -49,6 +49,7 @@ public class Board {
         log.debug( "boardRenamed : event=" + event );
 
         this.name = event.getName();
+        this.changes.add( event );
 
         return this;
     }
@@ -57,6 +58,7 @@ public class Board {
         log.debug( "storyAdded : event=" + event );
 
         this.stories.put( event.getStoryUuid(), event.getStory() );
+        this.changes.add( event );
 
         return this;
     }
@@ -65,6 +67,7 @@ public class Board {
         log.debug( "storyUpdated : event=" + event );
 
         this.stories.replace( event.getStoryUuid(), event.getStory() );
+        this.changes.add( event );
 
         return this;
     }
@@ -73,8 +76,14 @@ public class Board {
         log.debug( "storyDeleted : event=" + event );
 
         this.stories.remove( event.getStoryUuid() );
+        this.changes.add( event );
 
         return this;
+    }
+
+    public List<DomainEvent> changes() {
+
+        return ImmutableList.copyOf( changes );
     }
 
     // Builder Methods

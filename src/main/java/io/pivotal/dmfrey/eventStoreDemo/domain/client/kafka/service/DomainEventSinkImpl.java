@@ -3,7 +3,6 @@ package io.pivotal.dmfrey.eventStoreDemo.domain.client.kafka.service;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.pivotal.dmfrey.eventStoreDemo.domain.events.DomainEvent;
 import io.pivotal.dmfrey.eventStoreDemo.domain.model.Board;
-import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.common.serialization.Serde;
 import org.apache.kafka.common.serialization.Serdes;
 import org.apache.kafka.common.utils.Bytes;
@@ -12,6 +11,8 @@ import org.apache.kafka.streams.kstream.KStream;
 import org.apache.kafka.streams.kstream.Materialized;
 import org.apache.kafka.streams.kstream.Serialized;
 import org.apache.kafka.streams.state.KeyValueStore;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.cloud.stream.annotation.EnableBinding;
 import org.springframework.cloud.stream.annotation.StreamListener;
 import org.springframework.context.annotation.Profile;
@@ -23,8 +24,9 @@ import static io.pivotal.dmfrey.eventStoreDemo.domain.client.kafka.config.KafkaC
 
 @Profile( "kafka" )
 @EnableBinding( BoardEventsStreamsProcessor.class )
-@Slf4j
 public class DomainEventSinkImpl implements DomainEventSink {
+
+    private static final Logger log = LoggerFactory.getLogger( DomainEventSinkImpl.class );
 
     private final ObjectMapper mapper;
     private final Serde<DomainEvent> domainEventSerde;

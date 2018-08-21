@@ -2,20 +2,18 @@ package io.pivotal.dmfrey.eventStoreDemo.domain.client.eventStore.service;
 
 import io.pivotal.dmfrey.eventStoreDemo.domain.client.BoardClient;
 import io.pivotal.dmfrey.eventStoreDemo.domain.client.eventStore.config.RestConfig;
-import io.pivotal.dmfrey.eventStoreDemo.domain.events.DomainEvent;
 import io.pivotal.dmfrey.eventStoreDemo.domain.events.DomainEvents;
 import io.pivotal.dmfrey.eventStoreDemo.domain.model.Board;
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 
-import java.util.List;
 import java.util.UUID;
 
-@Slf4j
 public class EventStoreBoardClient implements BoardClient {
+
+    private static final Logger log = LoggerFactory.getLogger( EventStoreBoardClient.class );
 
     private final RestConfig.EventStoreClient eventStoreClient;
 

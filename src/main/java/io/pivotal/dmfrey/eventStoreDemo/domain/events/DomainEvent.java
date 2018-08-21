@@ -47,7 +47,7 @@ public abstract class DomainEvent {
         return when;
     }
 
-    @JsonProperty( "eventType" )
+
     public abstract String eventType();
 
 }

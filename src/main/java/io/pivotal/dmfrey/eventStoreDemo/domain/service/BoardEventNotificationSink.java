@@ -1,6 +1,7 @@
 package io.pivotal.dmfrey.eventStoreDemo.domain.service;
 
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.cloud.stream.annotation.EnableBinding;
 import org.springframework.cloud.stream.annotation.StreamListener;
 import org.springframework.cloud.stream.messaging.Sink;
@@ -13,8 +14,9 @@ import java.util.UUID;
 
 @Profile( "event-store" )
 @EnableBinding( Sink.class )
-@Slf4j
 public class BoardEventNotificationSink {
+
+    private static final Logger log = LoggerFactory.getLogger( BoardEventNotificationSink.class );
 
     private final BoardService service;
 

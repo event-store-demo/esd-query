@@ -1,7 +1,6 @@
 package io.pivotal.dmfrey.eventStoreDemo.domain.events;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import lombok.Data;
@@ -32,7 +31,7 @@ public class StoryDeleted extends DomainEvent {
     }
 
     @Override
-    @JsonIgnore
+    @JsonProperty( "eventType" )
     public String eventType() {
 
         return this.getClass().getSimpleName();

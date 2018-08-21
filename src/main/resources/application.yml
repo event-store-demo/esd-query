@@ -12,6 +12,7 @@ server:
     protocol-header: x-forwarded-proto
 
 spring:
+
   jackson:
     serialization:
       write_dates_as_timestamps: false
@@ -42,7 +43,7 @@ spring:
           contentType: application/json
           group: query-board-events-group
           consumer:
-            useNativeDecoding: true
+#            useNativeDecoding: true
             headerMode: raw
       kafka:
         streams:

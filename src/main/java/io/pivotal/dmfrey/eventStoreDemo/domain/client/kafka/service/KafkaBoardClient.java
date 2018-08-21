@@ -1,21 +1,21 @@
 package io.pivotal.dmfrey.eventStoreDemo.domain.client.kafka.service;
 
 import io.pivotal.dmfrey.eventStoreDemo.domain.client.BoardClient;
-import io.pivotal.dmfrey.eventStoreDemo.domain.events.DomainEvent;
 import io.pivotal.dmfrey.eventStoreDemo.domain.model.Board;
-import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.streams.errors.InvalidStateStoreException;
 import org.apache.kafka.streams.state.QueryableStoreTypes;
 import org.apache.kafka.streams.state.ReadOnlyKeyValueStore;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.cloud.stream.binder.kafka.streams.QueryableStoreRegistry;
 
-import java.util.List;
 import java.util.UUID;
 
 import static io.pivotal.dmfrey.eventStoreDemo.domain.client.kafka.config.KafkaClientConfig.BOARD_EVENTS_SNAPSHOTS;
 
-@Slf4j
 public class KafkaBoardClient implements BoardClient {
+
+    private static final Logger log = LoggerFactory.getLogger( KafkaBoardClient.class );
 
     private final QueryableStoreRegistry queryableStoreRegistry;
 
