@@ -8,8 +8,13 @@ eureka.instance.leaseRenewalIntervalInSeconds: 15
 spring:
   profiles: cloud
 
-  cloud:
-    services:
-      registrationMethod: direct
+#  cloud:
+#    services:
+#      registrationMethod: direct
 
-eureka.instance.leaseRenewalIntervalInSeconds: 30
+eureka:
+  instance:
+    leaseRenewalIntervalInSeconds: 10
+#    metadataMap:
+#      instanceId: ${vcap.application.instance_id:${spring.application.name}:${spring.application.instance_id:${server.port}}}
+

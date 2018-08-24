@@ -1,7 +1,7 @@
 ---
 applications:
-- name: esd-query
-  host: esd-query-development
+- name: esd-query-feature
+  host: esd-query-feature-development
   buildpack: java_buildpack_offline
   memory: 1024M
   instances: 1
@@ -13,3 +13,4 @@ applications:
   env:
     JAVA_OPTS: -Djava.security.egd=file:///dev/urandom
     SPRING_PROFILES_ACTIVE: event-store
+    FEATURE_HISTORY_ENABLED: true

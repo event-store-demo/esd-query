@@ -1,5 +1,6 @@
 package io.pivotal.dmfrey.eventStoreDemo.endpoint;
 
+import io.pivotal.dmfrey.eventStoreDemo.domain.events.DomainEvent;
 import io.pivotal.dmfrey.eventStoreDemo.domain.model.Board;
 import io.pivotal.dmfrey.eventStoreDemo.domain.service.BoardService;
 import org.slf4j.Logger;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
 import java.util.UUID;
 
 @ConditionalOnProperty( prefix = "feature", name = "history.enabled" )
@@ -27,7 +29,7 @@ public class HistoryController {
     }
 
     @GetMapping( "/boards/{boardUuid}/history" )
-    public ResponseEntity history( @PathVariable( "boardUuid" ) UUID boardUuid ) {
+    public ResponseEntity<List<DomainEvent>> history( @PathVariable( "boardUuid" ) UUID boardUuid ) {
         log.debug( "history : enter" );
 
         Board board = this.service.find( boardUuid );
